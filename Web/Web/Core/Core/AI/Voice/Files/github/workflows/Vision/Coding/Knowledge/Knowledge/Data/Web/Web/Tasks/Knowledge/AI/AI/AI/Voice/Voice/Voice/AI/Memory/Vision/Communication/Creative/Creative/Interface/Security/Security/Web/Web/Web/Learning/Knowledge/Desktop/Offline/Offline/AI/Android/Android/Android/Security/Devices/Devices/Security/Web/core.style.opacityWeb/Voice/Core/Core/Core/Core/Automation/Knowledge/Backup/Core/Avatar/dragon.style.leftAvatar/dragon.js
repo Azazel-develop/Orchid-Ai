@@ -1,70 +1,158 @@
-let sleeping=true;
+const DragonStates = {
+
+SLEEPING:"sleeping",
+
+FLYING:"flying",
+
+LISTENING:"listening",
+
+THINKING:"thinking",
+
+HAPPY:"happy",
+
+ALERT:"alert",
+
+TALKING:"talking"
+
+};
 
 
-function sleepDragon(){
 
-sleeping=true;
+let dragon =
+document.getElementById("dragon");
 
-document.getElementById(
-"dragon"
-).style.transform=
-"scale(.8)";
+
+
+function setDragonState(state){
+
+
+dragon.className=state;
+
+
+
+console.log(
+"Dragon State:",
+state
+);
 
 
 }
+
 
 
 
 function wakeDragon(){
 
-sleeping=false;
-
-
-let dragon=
-document.getElementById(
-"dragon"
+setDragonState(
+DragonStates.LISTENING
 );
 
 
-dragon.innerHTML=
-"🐉🔥";
+setTimeout(()=>{
 
 
-dragon.style.filter=
-"drop-shadow(0 0 30px purple)";
+setDragonState(
+DragonStates.THINKING
+);
+
+
+},3000);
 
 
 }
 
 
 
-function perch(){
 
-let dragon=
-document.getElementById(
-"dragon"
+function startFlying(){
+
+setDragonState(
+DragonStates.FLYING
 );
-
-
-dragon.style.left=
-"50%";
-
-
-dragon.style.top=
-"60%";
 
 }
 
+
+
+function sleepDragon(){
+
+setDragonState(
+DragonStates.SLEEPING
+);
+
+}
+
+
+
+function dragonHappy(){
+
+setDragonState(
+DragonStates.HAPPY
+);
+
+}
+
+
+
+function dragonAlert(){
+
+setDragonState(
+DragonStates.ALERT
+);
+
+}
+
+
+
+function dragonTalking(){
+
+setDragonState(
+DragonStates.TALKING
+);
+
+}
+
+
+
+function dragonThinking(){
+
+setDragonState(
+DragonStates.THINKING
+);
+
+}
+
+
+
+
+
+// Start sleeping
+
+sleepDragon();
+
+
+
+// Random flying every 20 seconds
 
 
 setInterval(()=>{
 
 
-if(sleeping){
+if(
+dragon.className==="sleeping"
+){
 
-perch();
+startFlying();
+
+
+setTimeout(()=>{
+
+sleepDragon();
+
+},8000);
+
 
 }
 
 
-},5000);
+},20000);
