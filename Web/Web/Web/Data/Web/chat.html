@@ -1,0 +1,36 @@
+<button onclick="listen()">
+🎤 Speak
+</button>
+
+
+<script>
+
+function listen(){
+
+
+let recognition =
+new webkitSpeechRecognition();
+
+
+recognition.lang="en-US";
+
+
+recognition.start();
+
+
+
+recognition.onresult=function(event){
+
+
+document.getElementById(
+"message"
+).value =
+event.results[0][0].transcript;
+
+
+}
+
+
+}
+
+</script>
