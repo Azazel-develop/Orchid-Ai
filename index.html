@@ -1,7 +1,213 @@
+<!DOCTYPE html>
 <html>
-<body style="background:#080012;color:#d8b4ff;text-align:center;">
+
+<head>
+<title>Orchid AI</title>
+
+<style>
+
+body {
+    background:#080012;
+    color:#e5c7ff;
+    font-family:Arial;
+    text-align:center;
+}
+
+.container {
+
+    margin:30px auto;
+    width:90%;
+    max-width:600px;
+    background:#160029;
+    padding:25px;
+    border-radius:25px;
+    box-shadow:0 0 40px purple;
+
+}
+
+
+h1 {
+
+    font-size:35px;
+
+}
+
+
+#dragon {
+
+    font-size:90px;
+    animation:fly 5s infinite;
+
+}
+
+
+@keyframes fly {
+
+0% {
+transform:translateX(-100px);
+}
+
+50% {
+transform:translateX(100px);
+}
+
+100% {
+transform:translateX(-100px);
+}
+
+}
+
+
+.panel {
+
+background:#050008;
+padding:15px;
+margin:15px;
+border-radius:15px;
+
+}
+
+
+button {
+
+background:#8b2cff;
+color:white;
+border:none;
+padding:12px 20px;
+border-radius:20px;
+font-size:16px;
+
+}
+
+
+input {
+
+padding:12px;
+border-radius:15px;
+border:none;
+width:70%;
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
 <h1>🌸 Orchid AI</h1>
-<h2>🐉 Online Test</h2>
-<p>Orchid is running.</p>
+
+
+<div id="dragon">
+🐉
+</div>
+
+
+<div class="panel">
+
+<div id="status">
+
+🟣 Sleeping...
+
+</div>
+
+</div>
+
+
+
+<div class="panel">
+
+<div id="chat">
+
+Orchid: Hello. My systems are online.
+
+</div>
+
+</div>
+
+
+
+<input id="message"
+placeholder="Talk to Orchid">
+
+
+<button onclick="talk()">
+
+Send
+
+</button>
+
+
+<button onclick="wake()">
+
+🎤 Wake Word
+
+</button>
+
+
+
+<div class="panel">
+
+<h3>System Status</h3>
+
+<p>🧠 AI Core: Online</p>
+<p>💾 Memory: Ready</p>
+<p>🎤 Voice: Waiting</p>
+<p>🐉 Avatar: Active</p>
+
+</div>
+
+
+
+</div>
+
+
+
+<script>
+
+
+function talk(){
+
+let msg =
+document.getElementById("message").value;
+
+
+document.getElementById("chat").innerHTML +=
+
+"<br>You: "+msg+
+
+"<br>🐉 Orchid: I received your message.";
+
+
+}
+
+
+
+function wake(){
+
+document.getElementById("status").innerHTML=
+
+"🔥🐉 Orchid Awake!";
+
+
+alert(
+"🐉 Orchid heard the wake word!"
+);
+
+
+}
+
+
+
+</script>
+
+
 </body>
+
 </html>
