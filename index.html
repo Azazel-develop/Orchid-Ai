@@ -2,93 +2,54 @@
 <html>
 
 <head>
-<title>Orchid AI</title>
+
+<title>Orchid AI v2</title>
 
 <style>
 
-body {
-    background:#080012;
-    color:#e5c7ff;
-    font-family:Arial;
-    text-align:center;
+body{
+background:#080012;
+color:#e8ccff;
+font-family:Arial;
+text-align:center;
 }
 
-.container {
-
-    margin:30px auto;
-    width:90%;
-    max-width:600px;
-    background:#160029;
-    padding:25px;
-    border-radius:25px;
-    box-shadow:0 0 40px purple;
-
+.container{
+margin:30px auto;
+width:90%;
+max-width:600px;
+background:#160029;
+padding:25px;
+border-radius:25px;
+box-shadow:0 0 40px purple;
 }
 
-
-h1 {
-
-    font-size:35px;
-
+#dragon{
+font-size:90px;
+transition:0.5s;
 }
 
-
-#dragon {
-
-    font-size:90px;
-    animation:fly 5s infinite;
-
+button{
+background:#8b2cff;
+color:white;
+border:0;
+padding:12px;
+border-radius:20px;
+margin:5px;
 }
 
-
-@keyframes fly {
-
-0% {
-transform:translateX(-100px);
+input{
+padding:12px;
+border-radius:15px;
+width:70%;
 }
 
-50% {
-transform:translateX(100px);
-}
-
-100% {
-transform:translateX(-100px);
-}
-
-}
-
-
-.panel {
-
+.panel{
 background:#050008;
 padding:15px;
 margin:15px;
 border-radius:15px;
-
 }
-
-
-button {
-
-background:#8b2cff;
-color:white;
-border:none;
-padding:12px 20px;
-border-radius:20px;
-font-size:16px;
-
-}
-
-
-input {
-
-padding:12px;
-border-radius:15px;
-border:none;
-width:70%;
-
-}
-
 
 </style>
 
@@ -99,7 +60,6 @@ width:70%;
 
 
 <div class="container">
-
 
 <h1>🌸 Orchid AI</h1>
 
@@ -112,57 +72,53 @@ width:70%;
 <div class="panel">
 
 <div id="status">
-
-🟣 Sleeping...
-
+Sleeping...
 </div>
 
 </div>
-
 
 
 <div class="panel">
 
 <div id="chat">
-
-Orchid: Hello. My systems are online.
-
+Orchid: Voice system ready.
 </div>
 
 </div>
-
 
 
 <input id="message"
-placeholder="Talk to Orchid">
+placeholder="Speak or type">
 
 
-<button onclick="talk()">
+<br>
 
-Send
 
+<button onclick="listen()">
+🎤 Listen
 </button>
 
 
-<button onclick="wake()">
+<button onclick="send()">
+Send
+</button>
 
-🎤 Wake Word
 
+<button onclick="clearMemory()">
+Clear Memory
 </button>
 
 
 
 <div class="panel">
 
-<h3>System Status</h3>
+<h3>Memory</h3>
 
-<p>🧠 AI Core: Online</p>
-<p>💾 Memory: Ready</p>
-<p>🎤 Voice: Waiting</p>
-<p>🐉 Avatar: Active</p>
-
+<div id="memory">
+Empty
 </div>
 
+</div>
 
 
 </div>
@@ -172,37 +128,145 @@ Send
 <script>
 
 
-function talk(){
+let memory =
+localStorage.getItem("orchidMemory")
+|| "";
 
-let msg =
+document.getElementById("memory").innerHTML =
+memory || "No memories";
+
+
+
+function send(){
+
+
+let text =
 document.getElementById("message").value;
 
 
 document.getElementById("chat").innerHTML +=
-
-"<br>You: "+msg+
-
-"<br>🐉 Orchid: I received your message.";
+"<br>You: "+text;
 
 
-}
+memory += "<br>"+text;
 
 
-
-function wake(){
-
-document.getElementById("status").innerHTML=
-
-"🔥🐉 Orchid Awake!";
+localStorage.setItem(
+"orchidMemory",
+memory
+);
 
 
-alert(
-"🐉 Orchid heard the wake word!"
+document.getElementById("memory").innerHTML =
+memory;
+
+
+speak(
+" I heard you. My systems are working."
 );
 
 
 }
 
+
+
+function listen(){
+
+
+let SpeechRecognition =
+window.SpeechRecognition ||
+window.webkitSpeechRecognition;
+
+
+if(!SpeechRecognition){
+
+alert(
+"Speech recognition not supported"
+);
+
+return;
+
+}
+
+
+let recognition =
+new SpeechRecognition();
+
+
+recognition.start();
+
+
+document.getElementById("status").innerHTML =
+"🎤 Listening...";
+
+
+recognition.onresult=function(event){
+
+
+let text =
+event.results[0][0].transcript;
+
+
+document.getElementById("message").value =
+text;
+
+
+dragonWake();
+
+
+};
+
+
+}
+
+
+
+function speak(text){
+
+
+let voice =
+new SpeechSynthesisUtterance(text);
+
+
+speechSynthesis.speak(voice);
+
+}
+
+
+
+function dragonWake(){
+
+
+document.getElementById("dragon").innerHTML =
+"🐉🔥";
+
+
+document.getElementById("status").innerHTML =
+"Orchid Awake";
+
+
+setTimeout(()=>{
+
+document.getElementById("dragon").innerHTML =
+"🐉";
+
+},2000);
+
+
+}
+
+
+
+function clearMemory(){
+
+localStorage.removeItem(
+"orchidMemory"
+);
+
+document.getElementById("memory").innerHTML =
+"Empty";
+
+}
 
 
 </script>
