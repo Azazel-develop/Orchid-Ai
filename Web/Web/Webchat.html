@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>
+Orchid AI
+</title>
+
+
+<style>
+
+body {
+
+font-family: Arial;
+text-align:center;
+margin-top:40px;
+
+}
+
+
+#chat {
+
+width:80%;
+height:300px;
+border:1px solid black;
+margin:auto;
+overflow:auto;
+
+}
+
+
+input {
+
+width:60%;
+padding:10px;
+
+}
+
+
+button {
+
+padding:10px;
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<h1>
+🌸 Orchid AI
+</h1>
+
+
+<div id="chat">
+
+</div>
+
+
+<input id="message"
+placeholder="Ask Orchid">
+
+
+<button onclick="send()">
+Send
+</button>
+
+
+
+<script>
+
+
+function send(){
+
+
+let text =
+document.getElementById(
+"message"
+).value;
+
+
+
+fetch(
+"/ask?cmd="
++encodeURIComponent(text)
+)
+
+
+.then(
+r=>r.text()
+)
+
+
+.then(
+answer=>{
+
+
+let box =
+document.getElementById(
+"chat"
+);
+
+
+box.innerHTML +=
+
+"<p><b>You:</b> "
++text+
+"</p>";
+
+
+box.innerHTML +=
+
+"<p><b>Orchid:</b> "
++answer+
+"</p>";
+
+
+}
+
+);
+
+
+}
+
+</script>
+
+
+</body>
+
+</html>
