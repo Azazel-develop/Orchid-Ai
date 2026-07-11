@@ -1,0 +1,16 @@
+class Tasks:
+
+
+    def __init__(self):
+
+        self.tasks=[]
+
+
+    def add(self,task):
+
+        self.tasks.append(task)
+
+
+    def show(self):
+
+        return self.tasks
