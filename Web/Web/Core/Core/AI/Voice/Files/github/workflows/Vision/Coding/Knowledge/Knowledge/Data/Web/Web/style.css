@@ -1,0 +1,63 @@
+body {
+
+background:#090014;
+color:#d8b4ff;
+font-family:Arial;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+
+}
+
+
+.panel {
+
+width:600px;
+padding:40px;
+background:#160022;
+border:2px solid #9b4dff;
+border-radius:25px;
+box-shadow:0 0 30px #9b4dff;
+
+}
+
+
+h1 {
+
+font-size:50px;
+text-align:center;
+
+}
+
+
+#chat {
+
+height:300px;
+background:#050008;
+padding:20px;
+border-radius:15px;
+margin-bottom:20px;
+
+}
+
+
+input {
+
+width:70%;
+padding:15px;
+background:#24003d;
+color:white;
+border:1px solid #9b4dff;
+
+}
+
+
+button {
+
+padding:15px;
+background:#9b4dff;
+color:white;
+border:none;
+
+}
