@@ -1,50 +1,92 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
-<title>Orchid AI v3</title>
+<title>🌸 Orchid AI v4</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<link rel="stylesheet" href="Avatar/dragon.css">
+
+
 <style>
 
+*{
+box-sizing:border-box;
+}
+
+
 body{
+
 margin:0;
-overflow:hidden;
+
 background:
-linear-gradient(135deg,#05000f,#26004d,#05000f);
-color:#fff;
-font-family:Arial;
-height:100vh;
+
+radial-gradient(circle at center,#24004d,#020003 70%);
+
+color:#eee;
+
+font-family:Arial,sans-serif;
+
+min-height:100vh;
+
+overflow-x:hidden;
+
 }
 
 
-#stars{
+
+/* hologram background */
+
+body:before{
+
+content:"";
+
 position:fixed;
+
 inset:0;
+
 background:
-radial-gradient(circle,#9d4dff 1px,transparent 2px);
+
+linear-gradient(
+90deg,
+transparent 95%,
+rgba(160,0,255,.2) 100%
+);
+
 background-size:40px 40px;
-opacity:.15;
+
+opacity:.2;
+
 }
+
 
 
 .container{
 
 position:relative;
+
 z-index:2;
-text-align:center;
+
 padding:20px;
+
+text-align:center;
 
 }
 
 
-h1{
 
-color:#dcb0ff;
+.title{
+
+font-size:40px;
+
+color:#d7a0ff;
+
 text-shadow:
-0 0 10px #a000ff,
-0 0 30px #ff00ff;
+
+0 0 15px purple,
+0 0 40px #9b00ff;
 
 }
 
@@ -52,49 +94,41 @@ text-shadow:
 
 .core{
 
-width:170px;
-height:170px;
 margin:auto;
+
+width:170px;
+
+height:170px;
+
 border-radius:50%;
 
 background:
-radial-gradient(circle,#fff,#c05cff,#5200aa);
+
+radial-gradient(
+circle,
+white,
+#bb55ff,
+#220033
+);
+
 
 box-shadow:
-0 0 30px purple,
-0 0 80px #a000ff;
 
-animation:pulse 2s infinite;
+0 0 40px #b000ff,
+0 0 100px purple;
+
+
+animation:pulse 3s infinite;
 
 }
+
 
 
 @keyframes pulse{
 
 50%{
-transform:scale(1.08);
-}
 
-}
-
-
-
-#dragon{
-
-font-size:90px;
-position:absolute;
-top:180px;
-left:50%;
-
-animation:float 5s infinite;
-
-}
-
-
-@keyframes float{
-
-50%{
-transform:translate(-40px,-20px);
+transform:scale(1.1);
 
 }
 
@@ -104,21 +138,38 @@ transform:translate(-40px,-20px);
 
 .panel{
 
-background:
-rgba(40,0,80,.7);
-
-border:1px solid #b85cff;
-
-border-radius:25px;
-
-padding:20px;
+max-width:650px;
 
 margin:20px auto;
 
-max-width:600px;
+padding:20px;
+
+background:
+
+rgba(15,0,35,.85);
+
+
+border:
+
+1px solid #8d00ff;
+
+
+border-radius:25px;
+
 
 box-shadow:
-0 0 25px purple;
+
+0 0 30px #7200ff;
+
+}
+
+
+
+.status{
+
+color:#dca6ff;
+
+font-size:20px;
 
 }
 
@@ -126,19 +177,36 @@ box-shadow:
 
 button{
 
-background:#9b32ff;
+background:
+
+linear-gradient(
+45deg,
+#450080,
+#b000ff
+);
+
 
 color:white;
 
 border:0;
 
-padding:12px 20px;
+padding:14px 25px;
 
-border-radius:25px;
+border-radius:30px;
+
+margin:5px;
 
 font-size:16px;
 
-margin:5px;
+}
+
+
+
+button:hover{
+
+box-shadow:
+
+0 0 20px purple;
 
 }
 
@@ -154,112 +222,250 @@ border-radius:20px;
 
 border:0;
 
-}
+background:#08000f;
 
-
-
-#wave{
-
-height:20px;
-
-margin:20px;
+color:white;
 
 }
 
 
 
-.bar{
+.chat{
 
-display:inline-block;
+height:180px;
 
-width:5px;
+overflow:auto;
 
-height:20px;
+text-align:left;
 
-background:#d47cff;
+background:#050007;
 
-margin:3px;
+padding:15px;
 
-animation:sound .5s infinite alternate;
+border-radius:15px;
+
+}
+
+
+
+.system{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:10px;
 
 }
 
 
+.system div{
 
-@keyframes sound{
+background:#100020;
 
-to{
-height:50px;
+padding:15px;
+
+border-radius:15px;
+
 }
 
-}
 
 
 </style>
 
+
 </head>
+
 
 
 <body>
 
 
-<div id="stars"></div>
-
 
 <div class="container">
 
 
-<h1>🌸 Orchid AI</h1>
+<div class="title">
 
+🌸 ORCHID AI
 
-<div id="dragon">
-🐉
 </div>
 
-
-<div class="core"></div>
 
 
 <div class="panel">
 
 
-<h2 id="status">
-Sleeping
+<div class="core"></div>
+
+
+<h2 class="status" id="status">
+
+SYSTEM SLEEPING
+
 </h2>
 
-
-<div id="wave">
 
 </div>
 
 
+
+<!-- DRAGON AREA -->
+
+
+<div class="panel">
+
+
+<div id="dragon-container">
+
+
+<div id="dragon" class="sleeping">
+
+
+<div class="dragon-body">
+
+🐉
+
+</div>
+
+
+<div class="wing left-wing"></div>
+
+<div class="wing right-wing"></div>
+
+
+</div>
+
+
+
+<div id="orb">
+
+🌸
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="panel">
+
+
+<div class="chat" id="chat">
+
+Orchid:
+Systems online.
+Waiting for command.
+
+</div>
+
+
+<br>
+
+
 <input id="input"
-placeholder="Say Hey Orchid...">
+
+placeholder="Speak to Orchid">
 
 
 <br>
 
 
 <button onclick="listen()">
-🎤 Activate Voice
+
+🎤 Voice
+
 </button>
 
 
 <button onclick="send()">
+
 Send
+
+</button>
+
+
+<button onclick="wakeDragon()">
+
+🐉 Wake
+
 </button>
 
 
 </div>
+
+
 
 
 
 <div class="panel">
 
 
-<div id="chat">
+<h3>
+SYSTEMS
+</h3>
 
-Orchid: Systems online.
+
+<div class="system">
+
+
+<div>
+
+🧠 AI Core<br>
+Online
+
+</div>
+
+
+<div>
+
+🐉 Dragon<br>
+Active
+
+</div>
+
+
+<div>
+
+💾 Memory<br>
+Ready
+
+</div>
+
+
+<div>
+
+🎤 Voice<br>
+Ready
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<div class="panel">
+
+
+<h3>
+Memory
+</h3>
+
+
+<div id="memory">
+
+Empty
 
 </div>
 
@@ -271,26 +477,49 @@ Orchid: Systems online.
 </div>
 
 
+
+
+
+<script src="Avatar/dragon.js"></script>
 
 
 
 <script>
 
 
-let chat=document.getElementById("chat");
+let memory =
+localStorage.getItem(
+"orchidMemory"
+)||"";
 
 
-let recognition;
+document.getElementById(
+"memory"
+).innerHTML =
+memory || "No memories";
+
+
+
+
+function updateStatus(text){
+
+document.getElementById(
+"status"
+).innerHTML=text;
+
+}
+
 
 
 
 function speak(text){
 
 
-let voices=speechSynthesis.getVoices();
+dragonTalking();
 
 
-let msg=new SpeechSynthesisUtterance(text);
+let msg =
+new SpeechSynthesisUtterance(text);
 
 
 msg.rate=.9;
@@ -298,114 +527,19 @@ msg.rate=.9;
 msg.pitch=1.1;
 
 
-if(voices.length){
-
-msg.voice=
-voices.find(v=>v.lang.includes("en"))
-|| voices[0];
-
-}
-
-
 speechSynthesis.speak(msg);
 
 
-}
 
+msg.onend=function(){
 
+sleepDragon();
 
-
-
-function wakeAnimation(){
-
-
-document.getElementById("dragon")
-.innerHTML="🐉🔥";
-
-
-document.getElementById("status")
-.innerHTML="Orchid Awake";
-
-
-setTimeout(()=>{
-
-document.getElementById("dragon")
-.innerHTML="🐉";
-
-},2000);
-
-
-}
-
-
-
-
-
-function listen(){
-
-
-let SpeechRecognition =
-window.SpeechRecognition ||
-window.webkitSpeechRecognition;
-
-
-if(!SpeechRecognition){
-
-alert("Use Chrome for voice");
-
-return;
-
-}
-
-
-
-recognition =
-new SpeechRecognition();
-
-
-recognition.continuous=false;
-
-
-recognition.lang="en-US";
-
-
-recognition.start();
-
-
-document.getElementById("status")
-.innerHTML="🎤 Listening";
-
-
-
-recognition.onresult=function(event){
-
-
-let text=
-event.results[0][0].transcript;
-
-
-document.getElementById("input")
-.value=text;
-
-
-wakeAnimation();
-
-
-
-if(text.toLowerCase()
-.includes("hey orchid")){
-
-
-speak(
-"Hello. Orchid is listening."
+updateStatus(
+"SYSTEM SLEEPING"
 );
 
-
-}
-
-
 };
-
 
 
 }
@@ -417,27 +551,65 @@ speak(
 function send(){
 
 
-let text=
-document.getElementById("input").value;
+let text =
+document.getElementById(
+"input"
+).value;
+
+
+if(!text)return;
 
 
 
 chat.innerHTML +=
+
 "<br><b>You:</b> "+text;
 
 
 
-let reply=
-"I heard you. My AI core is ready for upgrade.";
+memory +=
+"<br>"+text;
+
+
+localStorage.setItem(
+"orchidMemory",
+memory
+);
+
+
+
+document.getElementById(
+"memory"
+).innerHTML=memory;
+
+
+
+dragonThinking();
+
+updateStatus(
+"THINKING..."
+);
+
+
+
+setTimeout(()=>{
+
+
+let reply =
+"Command received. Orchid core responding.";
 
 
 
 chat.innerHTML +=
+
 "<br><b>Orchid:</b> "+reply;
 
 
 
 speak(reply);
+
+
+},1500);
 
 
 }
@@ -446,8 +618,89 @@ speak(reply);
 
 
 
+function listen(){
+
+
+
+let SpeechRecognition =
+
+window.SpeechRecognition ||
+
+window.webkitSpeechRecognition;
+
+
+
+if(!SpeechRecognition){
+
+alert(
+"Use Chrome for voice."
+);
+
+return;
+
+}
+
+
+
+let rec =
+new SpeechRecognition();
+
+
+
+rec.lang="en-US";
+
+
+rec.start();
+
+
+
+updateStatus(
+"LISTENING"
+);
+
+
+
+rec.onresult=function(e){
+
+
+let text =
+e.results[0][0].transcript;
+
+
+document.getElementById(
+"input"
+).value=text;
+
+
+wakeDragon();
+
+
+};
+
+
+}
+
+
+
+
+
+function clearMemory(){
+
+localStorage.removeItem(
+"orchidMemory"
+);
+
+memory="";
+
+
+}
+
+
+
 </script>
 
 
+
 </body>
+
 </html>
