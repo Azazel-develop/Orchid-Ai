@@ -1,15 +1,14 @@
 """
-Orchid AI - Web Interface
-Stage 1
+Orchid AI Web Server
+Stage 1.2
 """
 
 from http.server import HTTPServer, BaseHTTPRequestHandler
-import json
+from urllib.parse import urlparse, parse_qs
 import sys
 import os
 
 
-# Connect to Core folder
 sys.path.append(
     os.path.join(
         os.path.dirname(__file__),
@@ -27,108 +26,58 @@ orchid = Orchid()
 class OrchidServer(BaseHTTPRequestHandler):
 
 
+    def send_page(self, content):
+
+        self.send_response(200)
+
+        self.send_header(
+            "Content-type",
+            "text/html"
+        )
+
+        self.end_headers()
+
+        self.wfile.write(
+            content.encode()
+        )
+
+
     def do_GET(self):
 
-        if self.path == "/":
-
-            page = """
-            <!DOCTYPE html>
-            <html>
-            <head>
-            <title>Orchid AI</title>
-
-            <style>
-            body {
-                font-family: Arial;
-                text-align:center;
-                margin-top:50px;
-            }
-
-            input {
-                width:300px;
-                padding:10px;
-            }
-
-            button {
-                padding:10px;
-            }
-
-            #answer {
-                margin-top:20px;
-            }
-
-            </style>
-
-            </head>
-
-            <body>
-
-            <h1>🌸 Orchid AI</h1>
-
-            <input id="cmd"
-            placeholder="Talk to Orchid">
-
-            <button onclick="send()">
-            Send
-            </button>
-
-            <div id="answer"></div>
+        url = urlparse(self.path)
 
 
-            <script>
+        if url.path == "/":
 
-            function send(){
+            with open(
+                "chat.html",
+                "r",
+                encoding="utf-8"
+            ) as file:
 
-                let command =
-                document.getElementById("cmd").value;
-
-
-                fetch(
-                "/ask?cmd="
-                + encodeURIComponent(command)
+                self.send_page(
+                    file.read()
                 )
 
-                .then(
-                response => response.text()
-                )
 
-                .then(
-                data =>
-                document.getElementById("answer")
-                .innerHTML=data
-                );
+        elif url.path == "/ask":
 
-            }
+            data = parse_qs(url.query)
 
-            </script>
+            command = data.get(
+                "cmd",
+                [""] 
+            )[0]
 
 
-            </body>
-            </html>
-            """
-
-            self.send_response(200)
-            self.send_header(
-                "Content-type",
-                "text/html"
-            )
-            self.end_headers()
-
-            self.wfile.write(
-                page.encode()
+            answer = orchid.command(
+                command
             )
 
 
-    def do_ASK(self):
-        pass
-
-
-
-    def do_GET_ASK(self, command):
-
-        response = orchid.command(command)
-
-        return response
+            self.send_page(
+                answer
+            )
 
 
 
@@ -137,8 +86,10 @@ server = HTTPServer(
     OrchidServer
 )
 
+
 print(
-    "Orchid running on port 8000"
+    "🌸 Orchid online at port 8000"
 )
+
 
 server.serve_forever()
