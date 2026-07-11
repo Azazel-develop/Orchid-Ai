@@ -1,55 +1,126 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 
-<title>Orchid AI v2</title>
+<title>Orchid AI</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
 
 body{
-background:#080012;
-color:#e8ccff;
-font-family:Arial;
+margin:0;
+background:
+radial-gradient(circle,#3b0066,#050008);
+color:white;
+font-family:Arial,sans-serif;
 text-align:center;
+min-height:100vh;
 }
 
-.container{
-margin:30px auto;
-width:90%;
-max-width:600px;
-background:#160029;
-padding:25px;
-border-radius:25px;
-box-shadow:0 0 40px purple;
+
+#app{
+padding:20px;
 }
+
+
+h1{
+color:#d58cff;
+text-shadow:0 0 20px purple;
+}
+
+
+.card{
+
+background:rgba(30,0,60,.8);
+border:1px solid #8f3cff;
+border-radius:25px;
+padding:20px;
+margin:20px auto;
+max-width:600px;
+box-shadow:0 0 30px #7200ff;
+
+}
+
 
 #dragon{
-font-size:90px;
-transition:0.5s;
+
+font-size:100px;
+animation:fly 4s infinite;
+
 }
+
+
+@keyframes fly{
+
+0%{transform:translateY(0)}
+50%{transform:translateY(-20px)}
+100%{transform:translateY(0)}
+
+}
+
+
+.awake{
+
+animation:fire .5s infinite;
+
+}
+
+
+@keyframes fire{
+
+50%{
+filter:drop-shadow(0 0 30px orange);
+}
+
+}
+
 
 button{
+
 background:#8b2cff;
+border:none;
 color:white;
-border:0;
-padding:12px;
-border-radius:20px;
+padding:12px 20px;
+border-radius:25px;
 margin:5px;
+font-size:16px;
+
 }
+
+
+button:hover{
+
+background:#c05cff;
+
+}
+
 
 input{
-padding:12px;
-border-radius:15px;
-width:70%;
+
+width:80%;
+padding:14px;
+border-radius:20px;
+border:none;
+
 }
 
-.panel{
-background:#050008;
-padding:15px;
-margin:15px;
-border-radius:15px;
+
+#chat{
+
+min-height:100px;
+text-align:left;
+
 }
+
+
+#memory{
+
+font-size:13px;
+opacity:.8;
+
+}
+
 
 </style>
 
@@ -59,43 +130,47 @@ border-radius:15px;
 <body>
 
 
-<div class="container">
+<div id="app">
+
 
 <h1>🌸 Orchid AI</h1>
 
+
+<div class="card">
 
 <div id="dragon">
 🐉
 </div>
 
-
-<div class="panel">
-
 <div id="status">
 Sleeping...
 </div>
 
+
 </div>
 
 
-<div class="panel">
+
+<div class="card">
+
 
 <div id="chat">
-Orchid: Voice system ready.
+Orchid: Online. Waiting for commands.
 </div>
 
-</div>
+
+<br>
 
 
-<input id="message"
-placeholder="Speak or type">
+<input id="input"
+placeholder="Talk to Orchid...">
 
 
 <br>
 
 
 <button onclick="listen()">
-🎤 Listen
+🎤 Voice
 </button>
 
 
@@ -104,24 +179,39 @@ Send
 </button>
 
 
-<button onclick="clearMemory()">
-Clear Memory
+<button onclick="wake()">
+🐉 Wake
 </button>
 
 
+</div>
 
-<div class="panel">
 
-<h3>Memory</h3>
+
+
+<div class="card">
+
+
+<h3>
+🧠 Memory
+</h3>
+
 
 <div id="memory">
-Empty
+Loading...
 </div>
+
+
+<button onclick="clearMemory()">
+Clear
+</button>
+
 
 </div>
 
 
 </div>
+
 
 
 
@@ -129,11 +219,56 @@ Empty
 
 
 let memory =
-localStorage.getItem("orchidMemory")
-|| "";
+localStorage.getItem("orchid_memory") || "";
+
 
 document.getElementById("memory").innerHTML =
-memory || "No memories";
+memory || "No memories yet";
+
+
+
+
+function wake(){
+
+let d=document.getElementById("dragon");
+
+d.innerHTML="🐉🔥";
+
+d.classList.add("awake");
+
+document.getElementById("status").innerHTML=
+"Orchid Awake";
+
+
+setTimeout(()=>{
+
+d.innerHTML="🐉";
+d.classList.remove("awake");
+
+},3000);
+
+
+}
+
+
+
+
+function speak(text){
+
+let voice =
+new SpeechSynthesisUtterance(text);
+
+
+voice.pitch=1.2;
+
+voice.rate=1;
+
+
+speechSynthesis.speak(voice);
+
+}
+
+
 
 
 
@@ -141,32 +276,66 @@ function send(){
 
 
 let text =
-document.getElementById("message").value;
+document.getElementById("input").value;
+
+
+if(!text)return;
 
 
 document.getElementById("chat").innerHTML +=
-"<br>You: "+text;
+"<br><b>You:</b> "+text;
+
 
 
 memory += "<br>"+text;
 
 
 localStorage.setItem(
-"orchidMemory",
+"orchid_memory",
 memory
 );
 
 
-document.getElementById("memory").innerHTML =
+document.getElementById("memory").innerHTML=
 memory;
 
 
-speak(
-" I heard you. My systems are working."
-);
+
+wake();
+
+
+
+let reply="I heard you.";
+
+
+
+if(text.toLowerCase().includes("timer")){
+
+reply="Timer command detected. Timer system will be added soon.";
+
+}
+
+
+
+if(text.toLowerCase().includes("hello")){
+
+reply="Hello. I am Orchid, your AI companion.";
+
+}
+
+
+
+document.getElementById("chat").innerHTML +=
+"<br><b>Orchid:</b> "+reply;
+
+
+speak(reply);
+
 
 
 }
+
+
 
 
 
@@ -178,10 +347,11 @@ window.SpeechRecognition ||
 window.webkitSpeechRecognition;
 
 
+
 if(!SpeechRecognition){
 
 alert(
-"Speech recognition not supported"
+"Voice recognition is not supported. Try Chrome."
 );
 
 return;
@@ -189,89 +359,66 @@ return;
 }
 
 
-let recognition =
-new SpeechRecognition();
+
+let rec=new SpeechRecognition();
 
 
-recognition.start();
+rec.lang="en-US";
 
 
-document.getElementById("status").innerHTML =
+rec.start();
+
+
+
+document.getElementById("status").innerHTML=
 "🎤 Listening...";
 
 
-recognition.onresult=function(event){
+
+rec.onresult=function(e){
 
 
-let text =
-event.results[0][0].transcript;
+let words =
+e.results[0][0].transcript;
 
 
-document.getElementById("message").value =
-text;
+document.getElementById("input").value=
+words;
 
 
-dragonWake();
+wake();
 
 
 };
 
 
-}
-
-
-
-function speak(text){
-
-
-let voice =
-new SpeechSynthesisUtterance(text);
-
-
-speechSynthesis.speak(voice);
 
 }
 
 
-
-function dragonWake(){
-
-
-document.getElementById("dragon").innerHTML =
-"🐉🔥";
-
-
-document.getElementById("status").innerHTML =
-"Orchid Awake";
-
-
-setTimeout(()=>{
-
-document.getElementById("dragon").innerHTML =
-"🐉";
-
-},2000);
-
-
-}
 
 
 
 function clearMemory(){
 
 localStorage.removeItem(
-"orchidMemory"
+"orchid_memory"
 );
 
-document.getElementById("memory").innerHTML =
+
+memory="";
+
+
+document.getElementById("memory").innerHTML=
 "Empty";
 
+
 }
+
 
 
 </script>
 
 
 </body>
-
 </html>
