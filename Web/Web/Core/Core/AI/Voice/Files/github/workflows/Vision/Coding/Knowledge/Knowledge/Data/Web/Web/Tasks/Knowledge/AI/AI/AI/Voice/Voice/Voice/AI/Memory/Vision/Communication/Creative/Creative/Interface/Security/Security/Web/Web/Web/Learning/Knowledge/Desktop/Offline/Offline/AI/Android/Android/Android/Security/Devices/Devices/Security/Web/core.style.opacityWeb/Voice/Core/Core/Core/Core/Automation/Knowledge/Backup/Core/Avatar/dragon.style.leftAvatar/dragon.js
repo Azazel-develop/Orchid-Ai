@@ -1,32 +1,70 @@
-let dragon =
+let sleeping=true;
+
+
+function sleepDragon(){
+
+sleeping=true;
+
 document.getElementById(
 "dragon"
-);
-
-
-function flyAround(){
-
-
-let x =
-Math.random()*80;
-
-
-let y =
-Math.random()*80;
-
-
-dragon.style.left =
-x+"%";
-
-
-dragon.style.top =
-y+"%";
+).style.transform=
+"scale(.8)";
 
 
 }
 
 
-setInterval(
-flyAround,
-5000
+
+function wakeDragon(){
+
+sleeping=false;
+
+
+let dragon=
+document.getElementById(
+"dragon"
 );
+
+
+dragon.innerHTML=
+"🐉🔥";
+
+
+dragon.style.filter=
+"drop-shadow(0 0 30px purple)";
+
+
+}
+
+
+
+function perch(){
+
+let dragon=
+document.getElementById(
+"dragon"
+);
+
+
+dragon.style.left=
+"50%";
+
+
+dragon.style.top=
+"60%";
+
+}
+
+
+
+setInterval(()=>{
+
+
+if(sleeping){
+
+perch();
+
+}
+
+
+},5000);
