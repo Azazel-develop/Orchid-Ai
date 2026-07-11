@@ -1,74 +1,133 @@
+#dragon-container{
+
+position:relative;
+height:300px;
+
+}
+
+
+
 #dragon{
 
 position:absolute;
 
-font-size:70px;
+left:50%;
+top:120px;
 
-transition:2s;
+font-size:80px;
 
-animation:
-fly 8s infinite;
+transform:translateX(-50%);
+
+transition:1s;
+
+}
+
+
+
+.dragon-body::before{
+
+content:"🐉";
 
 }
 
-
-.body{
-
-filter:
-drop-shadow(0 0 15px purple);
-
-}
 
 
 .wing{
 
-width:60px;
+position:absolute;
+
+width:70px;
 height:35px;
 
 background:
 linear-gradient(
 45deg,
-#220033,
+#160020,
 #b000ff
 );
 
-position:absolute;
 
 animation:
-flap .4s infinite alternate;
+flap .5s infinite alternate;
 
 }
 
 
-.left{
+.left-wing{
 
-left:-40px;
+left:-50px;
+
+}
+
+
+.right-wing{
+
+right:-50px;
 
 }
 
-
-.right{
-
-right:-40px;
-
-}
 
 
 @keyframes flap{
 
 from{
 
-transform:
-rotate(-20deg);
+transform:rotate(-25deg);
 
 }
+
 
 to{
 
-transform:
-rotate(30deg);
+transform:rotate(35deg);
 
 }
+
+}
+
+
+
+/* Sleeping */
+
+
+.sleeping{
+
+filter:
+brightness(.5)
+drop-shadow(0 0 10px purple);
+
+animation:
+breathing 4s infinite;
+
+}
+
+
+
+@keyframes breathing{
+
+
+50%{
+
+transform:
+translateX(-50%)
+scale(1.05);
+
+}
+
+}
+
+
+
+/* Flying */
+
+
+.flying{
+
+animation:
+fly 8s infinite;
+
+filter:
+drop-shadow(0 0 25px purple);
 
 }
 
@@ -78,72 +137,158 @@ rotate(30deg);
 
 
 0%{
-
-transform:
-translate(0,0);
-
-}
-
-
-25%{
-
-transform:
-translate(200px,-100px);
-
+left:20%;
+top:30%;
 }
 
 
 50%{
-
-transform:
-translate(-150px,100px);
-
-}
-
-
-75%{
-
-transform:
-translate(100px,150px);
-
+left:70%;
+top:50%;
 }
 
 
 100%{
+left:20%;
+top:30%;
+}
+
+
+}
+
+
+
+/* Listening */
+
+
+.listening{
+
+filter:
+drop-shadow(0 0 40px violet);
+
+}
+
+
+
+/* Thinking */
+
+
+.thinking{
+
+animation:
+think 2s infinite;
+
+}
+
+
+
+@keyframes think{
+
+
+50%{
+
+rotate:10deg;
+
+}
+
+}
+
+
+
+/* Happy */
+
+
+.happy{
+
+animation:
+happy .5s infinite;
+
+}
+
+
+@keyframes happy{
+
+50%{
 
 transform:
-translate(0,0);
+translateX(-50%)
+translateY(-20px);
 
 }
 
 }
+
+
+
+/* Alert */
+
+
+.alert{
+
+filter:
+drop-shadow(0 0 30px red);
+
+}
+
+
+
+/* Talking */
+
+
+.talking{
+
+animation:
+talk .3s infinite;
+
+}
+
+
+
+@keyframes talk{
+
+
+50%{
+
+scale:1.1;
+
+}
+
+}
+
+
+
 
 
 #orb{
+
+position:absolute;
+
+bottom:20px;
+
+left:50%;
+
+transform:translateX(-50%);
+
 
 width:120px;
 
 height:120px;
 
+
 border-radius:50%;
+
 
 background:
 radial-gradient(
 circle,
-#ffffff,
-#8b00ff,
-#180022
+white,
+purple,
+black
 );
 
 
 box-shadow:
+
 0 0 50px purple;
 
-
-position:absolute;
-
-bottom:30px;
-
-left:50%;
-
-}
+  }
